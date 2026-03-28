@@ -8,7 +8,15 @@ class Sudoku:
 
     def __str__(self) -> str:
         s = ""
-        # YOUR CODE HERE
+        for x in range(1,10): #loop 1-9
+            if x % 3 == 1 and x != 1: # start a new block on row 4 and 7
+                s += "\n" 
+            for y in range(1,10):
+                if y % 3 == 1 and y != 1: #add an extra space at column 4 and 7
+                    s += " "
+                s += str(self.sudoku[(x,y)]) # get the number at coordinates (x,y)
+                s += " "
+            s += "\n" #Create a newline after filling each row
         return s
 
     @classmethod
