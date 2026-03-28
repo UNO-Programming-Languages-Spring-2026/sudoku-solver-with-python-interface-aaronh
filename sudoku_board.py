@@ -22,7 +22,13 @@ class Sudoku:
     @classmethod
     def from_str(cls, s: str) -> "Sudoku":
         sudoku = {}
-        # YOUR CODE HERE
+        chars = s.split() #make a list of all entries without whitespace
+        i = 0
+        for x in range(1,10): #loop 1-9
+            for y in range(1,10):
+                if chars[i] != "-": #only add if entry contains a number
+                    sudoku[(x,y)] = int(chars[i])
+                i += 1
         return cls(sudoku)
 
     @classmethod
