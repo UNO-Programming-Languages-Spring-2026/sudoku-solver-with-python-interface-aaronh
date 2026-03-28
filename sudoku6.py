@@ -3,12 +3,15 @@ from sudoku_board import Sudoku
 
 class ClingoApp(clingo.application.Application):
     def main(self, ctl, files):
-        for file in files:
-            ctl.load(file)
+        if files:
+            with open(files[0]) as file:
+                board = Sudoku.from_str(file.read())
         if not files:
-            ctl.load("-")
+            board = Sudoku.from_str(sys.stdin.read())
         ctl.load("sudoku2.lp")
-        ctl.ground([("base", [])])
+        ctl.load("sudoku_py.lp")
+        context = Context(board)
+        ctl.ground([("base", [])], context=context)
         ctl.solve()
     
     def print_model(self, model, printer) -> None:
